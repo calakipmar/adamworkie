@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h2>TECH2102 - Enterprise Computing - 25JANMNFS2</h2>
+        {/* <h2>TECH2102 - Enterprise Computing - 25JANMNFS2</h2> */}
         <Name/>
       </header>
     </div>
