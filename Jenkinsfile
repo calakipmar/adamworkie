@@ -1,10 +1,10 @@
 pipeline {
     agent any
 
-    environment {
-        NETLIFY_SITE_ID = '3ce65ceb-75c5-4b92-bef5-42c40a4d5dfe' 
-        NETLIFY_AUTH_TOKEN = credentials('adamworkie-assignment2-token')
-    }
+    // environment {
+    //     NETLIFY_SITE_ID = '3ce65ceb-75c5-4b92-bef5-42c40a4d5dfe' 
+    //     NETLIFY_AUTH_TOKEN = credentials('adamworkie-assignment2-token')
+    // }
 
     stages {
         stage('Build') {
@@ -44,17 +44,15 @@ pipeline {
         stage('Deploy') {
             agent{
                 docker{
-                    image 'node:22.14.0-alpine'
+                    image 'amazon/aws-cli'
                     reuseNode true
+                    args '--entrypoint=""'
                 }
             }
             steps {
                 sh '''
-                    npm install netlify-cli 
-                    node_modules/.bin/netlify --version
-                    echo "Deploying to production... | SITE ID: $NETLIFY_SITE_ID"
-                    node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --prod --dir=build
+                    aws --version
+                    aws s3 ls
                 '''
             }
         }
